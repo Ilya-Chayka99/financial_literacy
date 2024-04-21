@@ -22,7 +22,7 @@ List<Widget> content = [
      ),
      Scaffold(
       appBar: AppBar(
-        backgroundColor: Colors.amberAccent,
+        backgroundColor: Colors.red,
         title: const Text("2"),
       ),
       body: const Center(
