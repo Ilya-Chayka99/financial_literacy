@@ -1,6 +1,7 @@
-import 'package:financial_literacy/Screens/my_home_page.dart';
+
+import 'package:financial_literacy/Screens/splash/splash_screen.dart';
 
 final routes = {
-        '/':(context) => const MyHomePage(),
+        '/':(context) => const SplashScreen(),
        
       };
