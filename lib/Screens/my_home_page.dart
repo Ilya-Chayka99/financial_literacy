@@ -3,7 +3,7 @@ import 'dart:math';
 
 import 'package:financial_literacy/Components/animated_bar.dart';
 import 'package:financial_literacy/Components/list_contents.dart';
-import 'package:financial_literacy/Components/side_menu_profile.dart';
+import 'package:financial_literacy/Screens/side_menu_profile.dart';
 import 'package:financial_literacy/Models/nav_item_model.dart';
 import 'package:flutter/material.dart';
 

@@ -1,6 +1,7 @@
 
 import 'package:financial_literacy/Components/info_card.dart';
 import 'package:financial_literacy/Components/sign_in_form.dart';
+import 'package:financial_literacy/Components/sign_up_form.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:google_fonts/google_fonts.dart';
@@ -30,7 +31,7 @@ class SideMenuProfile extends StatelessWidget {
                   title: const Text("zzzz"),
                   trailing: const Icon(Icons.arrow_forward_ios,color: Color.fromARGB(255, 255, 255, 255),),
                   onTap: () {
-                    customSignDialog(context);
+                    customSignInDialog(context);
                   },
                 )
               ),
@@ -41,14 +42,14 @@ class SideMenuProfile extends StatelessWidget {
     );
   }
 
-  Future<Object?> customSignDialog(BuildContext context) {
+  Future<Object?> customSignInDialog(BuildContext context) {
     return showGeneralDialog(
                     context: context, 
                     barrierDismissible: true,
                     barrierLabel: "Авторизация",
                     pageBuilder: (context,_ ,__) => Center(
                       child: Container(
-                        height: 620,
+                        height: 663,
                         margin: const EdgeInsets.symmetric(horizontal: 16),
                         padding: const EdgeInsets.symmetric(vertical: 32, horizontal: 24),
                         decoration: BoxDecoration(
@@ -90,7 +91,10 @@ class SideMenuProfile extends StatelessWidget {
                                   mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                                   children: [
                                     IconButton(
-                                      onPressed: () {}, 
+                                      onPressed: () {
+                                        Navigator.pop(context);
+                                        customSignUpDialog(context);
+                                      }, 
                                       icon: SvgPicture.asset("lib/Assets/icons/email_box.svg", height: 64,width: 64,),
                                     ),
                                     IconButton(
@@ -103,6 +107,41 @@ class SideMenuProfile extends StatelessWidget {
                                     )
                                   ],
                                 )
+                              ],
+                            ),
+                          ),
+                        ),
+                      ),
+                    )
+                  );
+  }
+
+
+  Future<Object?> customSignUpDialog(BuildContext context) {
+    return showGeneralDialog(
+                    context: context, 
+                    barrierDismissible: true,
+                    barrierLabel: "Регистрация",
+                    pageBuilder: (context,_ ,__) => Center(
+                      child: Container(
+                        height: 663,
+                        margin: const EdgeInsets.symmetric(horizontal: 16),
+                        padding: const EdgeInsets.symmetric(vertical: 32, horizontal: 24),
+                        decoration: BoxDecoration(
+                          color: Colors.white.withOpacity(0.94),
+                          borderRadius: const BorderRadius.all(Radius.circular(40))
+                        ),
+                        child: Scaffold(
+                          resizeToAvoidBottomInset: false,
+                          backgroundColor: Colors.transparent,
+                          body: Center(
+                            child: Column(
+                              children: [
+                                Text("Регистрация",style: GoogleFonts.russoOne(
+                                  textStyle: TextStyle(color: Colors.black.withOpacity(0.7), fontSize: 34)
+                                ),),
+                                const SizedBox(height: 10,),
+                                const SignUpForm(),
                               ],
                             ),
                           ),

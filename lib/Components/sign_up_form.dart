@@ -5,16 +5,16 @@ import 'package:flutter_svg/flutter_svg.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:rive/rive.dart';
 
-class SignInForm extends StatefulWidget {
-  const SignInForm({
+class SignUpForm extends StatefulWidget {
+  const SignUpForm({
     super.key,
   });
 
   @override
-  State<SignInForm> createState() => _SignInFormState();
+  State<SignUpForm> createState() => _SignUpFormState();
 }
 
-class _SignInFormState extends State<SignInForm> {
+class _SignUpFormState extends State<SignUpForm> {
 
   final GlobalKey<FormState> _formkey = GlobalKey<FormState>();
   final loginController = TextEditingController();
@@ -105,6 +105,33 @@ class _SignInFormState extends State<SignInForm> {
                   ),
                 ),
               ),
+              Text("Повтор пароля",style: GoogleFonts.russoOne(
+                textStyle: const TextStyle(color: Colors.black54,)
+              ),),
+              Padding(
+                padding: const EdgeInsets.only(top: 8, bottom: 16),
+                child: TextFormField(
+                  validator: (value) {
+                    if(value!.isEmpty || value != passController.text){
+                      return "Пароли должны совпадать";
+                    }
+                    return null;
+                  },
+                  onSaved: (password) {},
+                  obscureText: true,
+                  decoration: InputDecoration(
+                    filled: true,
+                    fillColor: Colors.white,
+                    border: OutlineInputBorder(
+                      borderRadius: BorderRadius.circular(20)
+                    ),
+                    prefixIcon: Padding(
+                      padding: const EdgeInsets.symmetric(horizontal: 8),
+                      child: SvgPicture.asset("lib/Assets/icons/password.svg"),
+                    ),
+                  ),
+                ),
+              ),
               Padding(
                 padding: const EdgeInsets.only(top: 8, bottom: 24),
                 child: ElevatedButton.icon(
@@ -141,8 +168,8 @@ class _SignInFormState extends State<SignInForm> {
                       )
                     )
                   ),
-                  icon: const Icon(CupertinoIcons.arrow_right,color: Colors.white,), 
-                  label: Text("Войти",style: GoogleFonts.russoOne(
+                  icon: const Icon(CupertinoIcons.arrow_right,color: Color.fromARGB(0, 255, 255, 255),), 
+                  label: Text("Зарегистрироваться",style: GoogleFonts.russoOne(
                     textStyle: const TextStyle(color: Colors.white,)
                   ),),
                 ),
