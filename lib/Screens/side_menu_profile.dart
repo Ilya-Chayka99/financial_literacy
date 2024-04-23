@@ -21,11 +21,11 @@ class SideMenuProfile extends StatelessWidget {
       child:  SafeArea(
         child: Column(
           children: [
-            const InfoCard(name: "wiwiwi", email: "Info@eee.ru",),
+            const InfoCard(name: "wiwiwi", email: "Info@eee.ru", img: 'https://avatarko.ru/img/avatar/2/devushka_ogon_1664.jpg',),
             SizedBox(
-              height: 600,
+              height: 200,
               child: ListView.separated(
-                itemCount: 15,
+                itemCount: 1,
                 separatorBuilder: (context, index) => const Divider(),
                 itemBuilder: (context,i)=> ListTile(
                   title: const Text("zzzz"),

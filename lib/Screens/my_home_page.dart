@@ -57,7 +57,7 @@ class _MyHomePageState extends State<MyHomePage> with SingleTickerProviderStateM
             curve: Curves.fastOutSlowIn,
             duration: const Duration(milliseconds: 200),
             width: 288,
-            right: isSideMenuOpen ? -25 : -288,
+            right: isSideMenuOpen ? 20 : -288,
             height:  MediaQuery.of(context).size.height,
             child: const SideMenuProfile()
           ),
@@ -67,7 +67,7 @@ class _MyHomePageState extends State<MyHomePage> with SingleTickerProviderStateM
             ..setEntry(3, 2, 0.001)
             ..rotateY(-animation.value + 30 * animation.value * pi / 180 ),
             child: Transform.translate(
-              offset: Offset(animation.value * - 240, 0),
+              offset: Offset(animation.value * - 300, 0),
               child: Transform.scale(
                 scale: scalAnimation.value,
                 child: ClipRRect(
@@ -102,7 +102,7 @@ class _MyHomePageState extends State<MyHomePage> with SingleTickerProviderStateM
                 onTap: () {
                   setState(() {
                     selectedNavIndex = index;
-                    if(index == 2) {
+                    if(index == bottonNavItems.length - 1) {
                       isSideMenuOpen = true;
                       _animationController.forward();
                     } else {

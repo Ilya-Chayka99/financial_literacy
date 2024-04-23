@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 
 List<Widget> content = [
      Scaffold(
+      backgroundColor: Colors.amber,
       appBar: AppBar(
         backgroundColor: Colors.amberAccent,
         title: const Text("1"),
