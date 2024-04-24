@@ -140,7 +140,7 @@ class _SignInFormState extends State<SignInForm> {
                         bottomRight: Radius.circular(25)
                       )
                     )
-                  ),
+                  ), 
                   icon: const Icon(CupertinoIcons.arrow_right,color: Colors.white,), 
                   label: Text("Войти",style: GoogleFonts.russoOne(
                     textStyle: const TextStyle(color: Colors.white,)

@@ -1,5 +1,4 @@
 
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:google_fonts/google_fonts.dart';
@@ -29,25 +28,25 @@ class InfoCard extends StatelessWidget {
         Row(
           mainAxisAlignment: MainAxisAlignment.spaceEvenly,
             children: [
-              Column(
+              const Column(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
                   Text("33 %"),
                   Text("Пройдено",textAlign: TextAlign.center,),
                 ],
               ),
-              SizedBox(
+              const SizedBox(
                 height: 60,
                 child: VerticalDivider(color: Colors.amber,thickness: 3,)
               ),
-              Column(
+              const Column(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
                   Text("------"),
                   Text("Рейтинг"),
                 ],
               ),
-              SizedBox(
+              const SizedBox(
                 height: 60,
                 child: VerticalDivider(color: Colors.amber,thickness: 3,)
               ),
