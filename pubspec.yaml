@@ -37,6 +37,9 @@ dependencies:
   flutter_svg: ^2.0.9
   google_fonts: ^6.2.0
   rive: ^0.12.4
+  get: ^4.6.6
+  smooth_page_indicator: ^1.1.0
+  shared_preferences: ^2.2.3
 
 
 dev_dependencies:

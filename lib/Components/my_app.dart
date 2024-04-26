@@ -1,5 +1,6 @@
-import 'package:financial_literacy/Routes/router.dart';
+import 'package:financial_literacy/GetX/Routes/routerPage.dart';
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 
 class MyApp extends StatelessWidget {
   const MyApp({super.key});
@@ -7,7 +8,8 @@ class MyApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
+    return GetMaterialApp(
+      debugShowCheckedModeBanner: false,
       title: '',
       themeMode: ThemeMode.light,
       darkTheme: ThemeData(
@@ -18,7 +20,9 @@ class MyApp extends StatelessWidget {
         colorScheme: ColorScheme.fromSeed(seedColor: Colors.amber),
         useMaterial3: true,
       ),
-      routes: routes,
+      initialRoute: '/',
+      getPages: routes,
     );
   }
 }
+
