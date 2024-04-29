@@ -2,6 +2,7 @@
 import 'package:financial_literacy/Models/onboarding_items.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:google_fonts/google_fonts.dart';
 import 'package:lottie/lottie.dart';
 import 'package:smooth_page_indicator/smooth_page_indicator.dart';
 
@@ -59,9 +60,13 @@ class _OnboardingState extends State<Onboarding> {
             return Column(
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
-                LottieBuilder.asset(controller.items[index].image,frameRate: FrameRate.max),
-                Text(controller.items[index].title),
-                Text(controller.items[index].decoration),
+                Image.asset(controller.items[index].image),
+                Text(controller.items[index].title,style: GoogleFonts.russoOne(
+                  textStyle: const TextStyle(color: Color.fromARGB(192, 0, 0, 0),fontSize: 32)
+                ),textAlign: TextAlign.center),
+                Text(controller.items[index].decoration,style: GoogleFonts.russoOne(
+                  textStyle: const TextStyle(color: Color.fromARGB(115, 0, 0, 0),fontSize: 16)
+                ),textAlign: TextAlign.center,),
               ],
             );
           }),

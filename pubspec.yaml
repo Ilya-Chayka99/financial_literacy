@@ -59,6 +59,8 @@ flutter:
     - lib/Assets/AnimJson/
     - lib/Assets/icons/
     - lib/Assets/RiveAssets/
+    - lib/Assets/Gif/
+    - lib/Assets/image/
   
 
   # An image asset can refer to one or more resolution-specific "variants", see
