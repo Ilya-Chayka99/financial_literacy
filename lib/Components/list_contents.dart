@@ -1,13 +1,16 @@
 
 import 'package:financial_literacy/Models/category.dart';
+import 'package:financial_literacy/Screens/course_screen.dart';
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
 
 List<Widget> content = [
 
      const Scaffold(
       resizeToAvoidBottomInset: false,
-      body: Center(
+      body: SizedBox(
+        height: double.infinity,
         child: Column(
           children: <Widget>[
             AppBar1(),
@@ -156,6 +159,9 @@ List<Widget> content = [
             ],
           ),
         ),
+        const SizedBox(
+                height: 20,
+        ),
         GridView.builder(
           shrinkWrap: true,
           padding: const EdgeInsets.symmetric(
@@ -183,14 +189,16 @@ List<Widget> content = [
 class CategoryCard extends StatelessWidget {
   final Category category;
   const CategoryCard({
-    Key? key,
+    super.key,
     required this.category,
-  }) : super(key: key);
+  });
 
   @override
   Widget build(BuildContext context) {
     return GestureDetector(
-      onTap: () {},
+      onTap: () {
+        Get.to(() =>CourseScreen(category: category));
+      },
       child: Container(
         padding: const EdgeInsets.all(10),
         decoration: BoxDecoration(
@@ -216,9 +224,22 @@ class CategoryCard extends StatelessWidget {
             const SizedBox(
               height: 10,
             ),
-            Text(category.name,style: GoogleFonts.russoOne(
-                textStyle: const TextStyle(color: Colors.black54,)
-              ),textAlign: TextAlign.center,),
+            Flexible(
+              child: Text(category.name,style: GoogleFonts.russoOne(
+                  textStyle: const TextStyle(color: Colors.black54,)
+                ),textAlign: TextAlign.center,),
+            ),
+            const SizedBox(
+              height: 10,
+            ),
+            LinearProgressIndicator(
+              value: category.complitedProcentage,
+              backgroundColor: Colors.black12,
+              color: const Color.fromARGB(255, 223, 40, 62),
+            ),
+            const SizedBox(
+              height: 5,
+            ),
           ],
         ),
       ),
