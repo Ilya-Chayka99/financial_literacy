@@ -17,7 +17,14 @@ class SideMenuProfile extends StatelessWidget {
     return Container(
       width: 288,
       height: double.infinity,
-      color: Colors.green,
+      decoration: const BoxDecoration(
+        gradient: LinearGradient(
+          colors: [Color(0xff17203a), Color(0xff1e2962)],
+          stops: [0.25, 0.75],
+          begin: Alignment.topLeft,
+          end: Alignment.bottomRight,
+        )
+      ),
       child:  SafeArea(
         child: Column(
           children: [

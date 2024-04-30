@@ -48,36 +48,46 @@ class _MyHomePageState extends State<MyHomePage> with SingleTickerProviderStateM
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Colors.green,
+      //backgroundColor: Color.fromARGB(255, 23, 32, 58),
       resizeToAvoidBottomInset: false,
       extendBody: true,
-      body: Stack(
-        children: [
-          AnimatedPositioned(
-            curve: Curves.fastOutSlowIn,
-            duration: const Duration(milliseconds: 200),
-            width: 288,
-            right: isSideMenuOpen ? 20 : -288,
-            height:  MediaQuery.of(context).size.height,
-            child: const SideMenuProfile()
-          ),
-          Transform(
-            alignment: Alignment.center,
-            transform: Matrix4.identity()
-            ..setEntry(3, 2, 0.001)
-            ..rotateY(-animation.value + 30 * animation.value * pi / 180 ),
-            child: Transform.translate(
-              offset: Offset(animation.value * - 300, 0),
-              child: Transform.scale(
-                scale: scalAnimation.value,
-                child: ClipRRect(
-                  borderRadius: BorderRadius.all(Radius.circular(isSideMenuOpen ? 24 : 0)),
-                  child: content[selectedNavIndexAnim]
-                )
-              )
+      body: Container(
+        decoration: const BoxDecoration(
+          gradient: LinearGradient(
+            colors: [Color(0xff17203a), Color(0xff1e2962)],
+            stops: [0.25, 0.75],
+            begin: Alignment.topLeft,
+            end: Alignment.bottomRight,
+          )
+        ),
+        child: Stack(
+          children: [
+            AnimatedPositioned(
+              curve: Curves.fastOutSlowIn,
+              duration: const Duration(milliseconds: 200),
+              width: 288,
+              right: isSideMenuOpen ? 20 : -288,
+              height:  MediaQuery.of(context).size.height,
+              child: const SideMenuProfile()
             ),
-          ),
-        ],
+            Transform(
+              alignment: Alignment.center,
+              transform: Matrix4.identity()
+              ..setEntry(3, 2, 0.001)
+              ..rotateY(-animation.value + 30 * animation.value * pi / 180 ),
+              child: Transform.translate(
+                offset: Offset(animation.value * - 300, 0),
+                child: Transform.scale(
+                  scale: scalAnimation.value,
+                  child: ClipRRect(
+                    borderRadius: BorderRadius.all(Radius.circular(isSideMenuOpen ? 24 : 0)),
+                    child: content[selectedNavIndexAnim]
+                  )
+                )
+              ),
+            ),
+          ],
+        ),
       ),
       bottomNavigationBar: SafeArea(
         child: Container(

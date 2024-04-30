@@ -3,7 +3,6 @@ import 'package:financial_literacy/Models/onboarding_items.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'package:lottie/lottie.dart';
 import 'package:smooth_page_indicator/smooth_page_indicator.dart';
 
 class Onboarding extends StatefulWidget {
@@ -86,7 +85,7 @@ class _OnboardingState extends State<Onboarding> {
         onPressed: (){
           Get.offAllNamed("/main");
         }, 
-        child: Text("Начать")
+        child: const Text("Начать")
       ),
     );
   }
