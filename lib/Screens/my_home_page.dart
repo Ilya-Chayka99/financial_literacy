@@ -6,6 +6,7 @@ import 'package:financial_literacy/Components/list_contents.dart';
 import 'package:financial_literacy/Screens/side_menu_profile.dart';
 import 'package:financial_literacy/Models/nav_item_model.dart';
 import 'package:flutter/material.dart';
+import 'package:google_fonts/google_fonts.dart';
 
 class MyHomePage extends StatefulWidget {
   const MyHomePage({super.key});
@@ -48,7 +49,6 @@ class _MyHomePageState extends State<MyHomePage> with SingleTickerProviderStateM
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      //backgroundColor: Color.fromARGB(255, 23, 32, 58),
       resizeToAvoidBottomInset: false,
       extendBody: true,
       body: Container(
@@ -92,17 +92,13 @@ class _MyHomePageState extends State<MyHomePage> with SingleTickerProviderStateM
       bottomNavigationBar: SafeArea(
         child: Container(
           padding: const EdgeInsets.all(12),
-          margin: const EdgeInsets.symmetric(horizontal: 24,vertical: 24),
-          decoration: BoxDecoration(
-            color: const Color(0xFF17203A).withOpacity(0.8),
-            borderRadius: const BorderRadius.all(Radius.circular(24)),
-            boxShadow: [
-              BoxShadow(
-                color: const Color(0xFF17203A).withOpacity(0.3),
-                offset: const Offset(0, 20),
-                blurRadius: 20
-              )
-            ]
+          decoration: const BoxDecoration(
+            gradient:LinearGradient(
+              colors: [Color(0xff17203a), Color(0xff1e2962)],
+              stops: [0.25, 0.75],
+              begin: Alignment.topLeft,
+              end: Alignment.bottomRight,
+            )
           ),
           child: Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -127,10 +123,13 @@ class _MyHomePageState extends State<MyHomePage> with SingleTickerProviderStateM
                   children: [
                     AnimatedBar(isActive: selectedNavIndex == index,),
                     SizedBox(
-                        height: 40,
-                        width: 40,
+                        height: 30,
+                        width: 30,
                         child: Icon(bottonNavItems[index].icon,color: selectedNavIndex == index ? Colors.white : Colors.grey,),
                       ),
+                      Text(bottonNavItems[index].title,style: GoogleFonts.russoOne(
+                        textStyle: TextStyle(color:selectedNavIndex == index ? Colors.white : Colors.grey, fontSize: 14)
+                      ),),
                   ],
                 ),
               )

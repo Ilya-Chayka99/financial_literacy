@@ -1,4 +1,5 @@
 
+import 'package:financial_literacy/GetX/Controllers/controller.dart';
 import 'package:financial_literacy/Models/category.dart';
 import 'package:financial_literacy/Screens/course_screen.dart';
 import 'package:flutter/material.dart';
@@ -22,23 +23,20 @@ List<Widget> content = [
 
 
      Scaffold(
-      appBar: AppBar(
-        backgroundColor: Colors.red,
-        title: const Text("2"),
-      ),
-      body: const Center(
+      body: Center(
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: <Widget>[
-            Text(
-              'You have pushed the button this many times:',
-            ),
-            Text('e45345'
-            ),
+            Image.asset("lib/Assets/image/image-PhotoRoom.png-PhotoRoom (7).png"),
+            Text("Данный раздел находится в разработке! \nПриносим свои извинения",style: GoogleFonts.russoOne(
+                    textStyle: const TextStyle(color: Colors.black,fontSize: 40)
+                  ), textAlign: TextAlign.center,),
           ],
         ),
       ),
      ),
+
+
       Scaffold(
       appBar: AppBar(
         backgroundColor: Colors.red,
@@ -89,8 +87,8 @@ List<Widget> content = [
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              Text("Здравствуйте",style: GoogleFonts.russoOne(
-                textStyle: const TextStyle(color: Colors.white,fontSize: 32)
+              Text("Финансовая грамотность -\nтрэнд 21 века",style: GoogleFonts.russoOne(
+                textStyle: const TextStyle(color: Colors.white,fontSize: 28)
               ),),
             ],
           ),
@@ -160,7 +158,7 @@ List<Widget> content = [
           ),
         ),
         const SizedBox(
-                height: 20,
+                height: 40,
         ),
         GridView.builder(
           shrinkWrap: true,
@@ -232,11 +230,11 @@ class CategoryCard extends StatelessWidget {
             const SizedBox(
               height: 10,
             ),
-            LinearProgressIndicator(
-              value: category.complitedProcentage,
+            Obx (() => LinearProgressIndicator(
+              value: ControllerGet.getCountComplitedProcent()[category.name] ?? 0,
               backgroundColor: Colors.black12,
               color: const Color.fromARGB(255, 223, 40, 62),
-            ),
+            )),
             const SizedBox(
               height: 5,
             ),

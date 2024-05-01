@@ -19,31 +19,39 @@ class InfoCard extends StatelessWidget {
           backgroundImage: NetworkImage(img),
         ),
         Text(name,style: GoogleFonts.russoOne(
-                      textStyle: const TextStyle(color: Colors.black,)
-                    ),),
+          textStyle: const TextStyle(color: Colors.white,)
+        ),),
         Text(email,style: GoogleFonts.russoOne(
-                      textStyle: const TextStyle(color: Color.fromARGB(75, 0, 0, 0),fontWeight: FontWeight.w100)
-                    ),),
+          textStyle: const TextStyle(color: Color.fromARGB(117, 255, 255, 255),fontWeight: FontWeight.w100)
+        ),),
         const SizedBox(height: 20,),
         Row(
           mainAxisAlignment: MainAxisAlignment.spaceEvenly,
             children: [
-              const Column(
+              Column(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
-                  Text("33 %"),
-                  Text("Пройдено",textAlign: TextAlign.center,),
+                  Text("33 %",style: GoogleFonts.russoOne(
+                    textStyle: const TextStyle(color: Color.fromARGB(255, 255, 255, 255),)
+                  ),),
+                  Text("Пройдено",style: GoogleFonts.russoOne(
+                    textStyle: const TextStyle(color: Colors.white,)
+                  ),),
                 ],
               ),
               const SizedBox(
                 height: 60,
                 child: VerticalDivider(color: Colors.amber,thickness: 3,)
               ),
-              const Column(
+              Column(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
-                  Text("------"),
-                  Text("Рейтинг"),
+                  Text("--------",style: GoogleFonts.russoOne(
+                    textStyle: const TextStyle(color: Colors.white,)
+                  ),),
+                  Text("Рэйтинг",style: GoogleFonts.russoOne(
+                    textStyle: const TextStyle(color: Colors.white,)
+                  ),),
                 ],
               ),
               const SizedBox(
@@ -51,72 +59,42 @@ class InfoCard extends StatelessWidget {
                 child: VerticalDivider(color: Colors.amber,thickness: 3,)
               ),
               Center(
-                child: Row(
+                child: Column(
                   children: [
-                    Text("14345"),
-                    SizedBox(width: 5,),
+                    Text("30",style: GoogleFonts.russoOne(
+                      textStyle: const TextStyle(color: Colors.white,)
+                    ),),
+                    SizedBox(width: 70,height: 5,),
                     SvgPicture.asset("lib/Assets/icons/rate-diamond-svgrepo-com.svg",width: 25,),
                   ],
                 ),
               )
             ],
           ),
-          Row(
-            children: [
-              Padding(
-                padding: const EdgeInsets.only(top: 20, bottom: 24 , right: 5),
-                child: SizedBox(
-                  width: 140,
-                  child: ElevatedButton(
-                    onPressed: () {
-                    
-                    }, 
-                    style: ElevatedButton.styleFrom(
-                      backgroundColor: const Color(0xFFF77D8E),
-                      minimumSize: const Size(20, 56),
-                      shape: const RoundedRectangleBorder(
-                        borderRadius: BorderRadius.only(
-                          topLeft: Radius.circular(25),
-                          topRight: Radius.circular(10),
-                          bottomLeft: Radius.circular(25),
-                          bottomRight: Radius.circular(10)
-                        )
-                      )
-                    ),
-                    child: Text("Редактировать профиль",textAlign: TextAlign.center,style: GoogleFonts.russoOne(
-                      textStyle: const TextStyle(color: Colors.white,fontSize: 10)
-                    ),),
-                  ),
+          Padding(
+            padding: const EdgeInsets.only(top: 20, bottom: 24 , right: 5),
+            child: SizedBox(
+              child: ElevatedButton(
+                onPressed: () {
+                
+                }, 
+                style: ElevatedButton.styleFrom(
+                  backgroundColor: Color.fromARGB(255, 255, 255, 255),
+                  minimumSize: const Size(20, 56),
+                  shape: const RoundedRectangleBorder(
+                    borderRadius: BorderRadius.only(
+                      topLeft: Radius.circular(10),
+                      topRight: Radius.circular(10),
+                      bottomLeft: Radius.circular(10),
+                      bottomRight: Radius.circular(10)
+                    )
+                  )
                 ),
+                child: Text("Редактировать профиль",textAlign: TextAlign.center,style: GoogleFonts.russoOne(
+                  textStyle: const TextStyle(color: Colors.black,fontSize: 18)
+                ),),
               ),
-              Padding(
-                padding: const EdgeInsets.only(top: 20, bottom: 24),
-                child: SizedBox(
-                  width: 140,
-                  child: ElevatedButton(
-                    onPressed: () {
-                    
-                    }, 
-                    style: ElevatedButton.styleFrom(
-                      backgroundColor: const Color(0xFFF77D8E),
-                      minimumSize: const Size(20, 56),
-                      shape: const RoundedRectangleBorder(
-                        borderRadius: BorderRadius.only(
-                          topLeft: Radius.circular(10),
-                          topRight: Radius.circular(25),
-                          bottomLeft: Radius.circular(10),
-                          bottomRight: Radius.circular(25)
-                        )
-                      )
-                    ),
-                    
-                    child: Text("Редактировать профиль",textAlign: TextAlign.center,style: GoogleFonts.russoOne(
-                      textStyle: const TextStyle(color: Colors.white,fontSize: 10)
-                    ),),
-                  ),
-                ),
-              )
-            ],
+            ),
           )
       ],
     );

@@ -1,4 +1,5 @@
 
+import 'package:financial_literacy/GetX/Controllers/controller.dart';
 import 'package:financial_literacy/Models/category.dart';
 import 'package:financial_literacy/Models/course.dart';
 import 'package:flutter/material.dart';
@@ -77,6 +78,7 @@ class CourseScreen extends StatelessWidget {
                 itemBuilder: (_, int index) {
                   return CourseContainer(
                     course: category.courses[index],
+                    category: category,
                   );
                 },
                 itemCount: category.courses.length,
@@ -91,15 +93,19 @@ class CourseScreen extends StatelessWidget {
 
 class CourseContainer extends StatelessWidget {
   final Course course;
+  final Category category;
   const CourseContainer({
     super.key,
-    required this.course,
+    required this.course, required this.category,
   });
 
   @override
   Widget build(BuildContext context) {
     return GestureDetector(
-      onTap: () {},
+      onTap: () => {
+        ControllerGet.to.myMap[category.name][course.name] += 1
+        //Get.to(() => DeteilsScreens())
+      },
       child: Container(
         margin: const EdgeInsets.symmetric(horizontal: 15),
         decoration: BoxDecoration(
@@ -132,15 +138,17 @@ class CourseContainer extends StatelessWidget {
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  Text(course.name),
+                  Text(course.name,style: GoogleFonts.russoOne(
+                    textStyle: const TextStyle(color: Colors.black,fontSize: 14)
+                  ),),
                   const SizedBox(
                     height: 10,
                   ),
-                  LinearProgressIndicator(
-                    value: course.complitedProcentage,
+                  Obx (() => LinearProgressIndicator(
+                    value: ControllerGet.getCountComplitedProcentCourses()[course.name] ?? 0,
                     backgroundColor: Colors.black12,
                     color: const Color.fromARGB(255, 223, 40, 62),
-                  )
+                  )),
                 ],
               ),
             ),

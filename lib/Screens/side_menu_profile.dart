@@ -1,10 +1,11 @@
 
 import 'package:financial_literacy/Components/info_card.dart';
-import 'package:financial_literacy/Components/sign_in_form.dart';
-import 'package:financial_literacy/Components/sign_up_form.dart';
+import 'package:financial_literacy/GetX/Controllers/controller.dart';
+import 'package:financial_literacy/Screens/onboarding/onboarding.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_svg/flutter_svg.dart';
-import 'package:google_fonts/google_fonts.dart';
+import 'package:get/get.dart';
+import 'package:shared_preferences/shared_preferences.dart';
+
 
 class SideMenuProfile extends StatelessWidget {
   const SideMenuProfile({
@@ -28,17 +29,20 @@ class SideMenuProfile extends StatelessWidget {
       child:  SafeArea(
         child: Column(
           children: [
-            const InfoCard(name: "wiwiwi", email: "Info@eee.ru", img: 'https://avatarko.ru/img/avatar/2/devushka_ogon_1664.jpg',),
+            const SizedBox(height: 20,),
+            InfoCard(name: ControllerGet.to.user.value.name, email: ControllerGet.to.user.value.email, img: 'http://89.111.131.40:8080/api/image/image/${ControllerGet.to.user.value.image}',),
             SizedBox(
               height: 200,
               child: ListView.separated(
                 itemCount: 1,
                 separatorBuilder: (context, index) => const Divider(),
                 itemBuilder: (context,i)=> ListTile(
-                  title: const Text("zzzz"),
+                  title: const Text("Выход",style: TextStyle(color: Colors.white),),
                   trailing: const Icon(Icons.arrow_forward_ios,color: Color.fromARGB(255, 255, 255, 255),),
-                  onTap: () {
-                    customSignInDialog(context);
+                  onTap: () async {
+                    final prefs = await SharedPreferences.getInstance();
+                    prefs.setBool("login", false);
+                    Get.off(const Onboarding());
                   },
                 )
               ),
@@ -47,115 +51,6 @@ class SideMenuProfile extends StatelessWidget {
         ),
       ),
     );
-  }
-
-  Future<Object?> customSignInDialog(BuildContext context) {
-    return showGeneralDialog(
-                    context: context, 
-                    barrierDismissible: true,
-                    barrierLabel: "Авторизация",
-                    pageBuilder: (context,_ ,__) => Center(
-                      child: Container(
-                        height: 663,
-                        margin: const EdgeInsets.symmetric(horizontal: 16),
-                        padding: const EdgeInsets.symmetric(vertical: 32, horizontal: 24),
-                        decoration: BoxDecoration(
-                          color: Colors.white.withOpacity(0.94),
-                          borderRadius: const BorderRadius.all(Radius.circular(40))
-                        ),
-                        child: Scaffold(
-                          resizeToAvoidBottomInset: false,
-                          backgroundColor: Colors.transparent,
-                          body: Center(
-                            child: Column(
-                              children: [
-                                Text("Авторизация",style: GoogleFonts.russoOne(
-                                  textStyle: TextStyle(color: Colors.black.withOpacity(0.7), fontSize: 34)
-                                ),),
-                                const SizedBox(height: 10,),
-                                const SignInForm(),
-                                Row(
-                                  children: [
-                                    const Expanded(child: Divider()),
-                                    Padding(
-                                      padding: const EdgeInsets.symmetric(horizontal: 16),
-                                      child: Text("ИЛИ",style: GoogleFonts.russoOne(
-                                          textStyle: const TextStyle(color: Colors.black26,)
-                                        ),),
-                                    ),
-                                    const Expanded(child: Divider()),
-                                  ],
-                                ),
-                                Padding(
-                                  padding: const EdgeInsets.symmetric(vertical: 24),
-                                  child: Text("Зарегистрируйтесь с помощью Электронной почты, Apple или Google",style: GoogleFonts.russoOne(
-                                          textStyle: const TextStyle(color: Colors.black54, )
-                                        ),
-                                        textAlign: TextAlign.center,
-                                      ),
-                                ),
-                                Row(
-                                  mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                                  children: [
-                                    IconButton(
-                                      onPressed: () {
-                                        Navigator.pop(context);
-                                        customSignUpDialog(context);
-                                      }, 
-                                      icon: SvgPicture.asset("lib/Assets/icons/email_box.svg", height: 64,width: 64,),
-                                    ),
-                                    IconButton(
-                                      onPressed: () {}, 
-                                      icon: SvgPicture.asset("lib/Assets/icons/google_box.svg", height: 64,width: 64,),
-                                    ),
-                                    IconButton(
-                                      onPressed: () {}, 
-                                      icon: SvgPicture.asset("lib/Assets/icons/apple_box.svg", height: 64,width: 64,),
-                                    )
-                                  ],
-                                )
-                              ],
-                            ),
-                          ),
-                        ),
-                      ),
-                    )
-                  );
-  }
-
-
-  Future<Object?> customSignUpDialog(BuildContext context) {
-    return showGeneralDialog(
-                    context: context, 
-                    barrierDismissible: true,
-                    barrierLabel: "Регистрация",
-                    pageBuilder: (context,_ ,__) => Center(
-                      child: Container(
-                        height: 663,
-                        margin: const EdgeInsets.symmetric(horizontal: 16),
-                        padding: const EdgeInsets.symmetric(vertical: 32, horizontal: 24),
-                        decoration: BoxDecoration(
-                          color: Colors.white.withOpacity(0.94),
-                          borderRadius: const BorderRadius.all(Radius.circular(40))
-                        ),
-                        child: Scaffold(
-                          resizeToAvoidBottomInset: false,
-                          backgroundColor: Colors.transparent,
-                          body: Center(
-                            child: Column(
-                              children: [
-                                Text("Регистрация",style: GoogleFonts.russoOne(
-                                  textStyle: TextStyle(color: Colors.black.withOpacity(0.7), fontSize: 34)
-                                ),),
-                                const SizedBox(height: 10,),
-                                const SignUpForm(),
-                              ],
-                            ),
-                          ),
-                        ),
-                      ),
-                    )
-                  );
   }
 }
 

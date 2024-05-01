@@ -1,12 +1,14 @@
 
+import 'package:financial_literacy/Models/question.dart';
+
 class Course {
   String name;
-  double complitedProcentage;
   String image;
+  List<Question> questions;
   
   Course({
     required this.name,
-    required this.complitedProcentage,
-    required this.image
+    required this.image,
+    required this.questions
   });
 }

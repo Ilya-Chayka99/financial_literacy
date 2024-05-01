@@ -1,9 +1,17 @@
 
+import 'dart:io';
+
+import 'package:financial_literacy/GetX/Controllers/controller.dart';
+import 'package:financial_literacy/Models/user.dart';
+import 'package:financial_literacy/Repositories/repository.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
+import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:image_picker/image_picker.dart';
 import 'package:rive/rive.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 class SignUpForm extends StatefulWidget {
   const SignUpForm({
@@ -19,6 +27,8 @@ class _SignUpFormState extends State<SignUpForm> {
   final GlobalKey<FormState> _formkey = GlobalKey<FormState>();
   final loginController = TextEditingController();
   final passController = TextEditingController();
+  final nameController = TextEditingController();
+  File? image;
 
   bool isShowLoading = false;
 
@@ -32,6 +42,16 @@ class _SignUpFormState extends State<SignUpForm> {
     return controller;
   }
 
+    Future pickImage(ImageSource source) async {
+    final XFile? image = await ImagePicker().pickImage(source: source);
+    if(image == null) return;
+    final imageTemporary = File(image.path);
+    setState(() {
+      this.image = imageTemporary;
+    });
+
+  }
+
   @override
   Widget build(BuildContext context) {
     return Stack(
@@ -41,6 +61,29 @@ class _SignUpFormState extends State<SignUpForm> {
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
+              Text("Имя",style: GoogleFonts.russoOne(
+                textStyle: const TextStyle(color: Colors.black54,)
+              ),),
+              Padding(
+                padding: const EdgeInsets.only(top: 8, bottom: 16),
+                child: TextFormField(
+                  controller: nameController,
+                  validator: (value) {
+                    if(value!.isEmpty){
+                      return "Обязательное поле";
+                    }
+                    return null;
+                  },
+                  onSaved: (password) {},
+                  decoration: InputDecoration(
+                    filled: true,
+                    fillColor: Colors.white,
+                    border: OutlineInputBorder(
+                      borderRadius: BorderRadius.circular(20)
+                    ),
+                  ),
+                ),
+              ),
               Text("Email",style: GoogleFonts.russoOne(
                 textStyle: const TextStyle(color: Colors.black54,)
               ),),
@@ -132,29 +175,111 @@ class _SignUpFormState extends State<SignUpForm> {
                   ),
                 ),
               ),
+              image != null?
+              Center(
+                child: ClipOval(
+                  child: Image.file(
+                    image!,
+                    width: 100,
+                    height: 100,
+                    fit: BoxFit.cover,
+                  ),
+                ),
+              ):Container(),
+              Padding(
+                padding: const EdgeInsets.only(top: 20),
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: [
+                    SizedBox(
+                      width: 175,
+                      child: ElevatedButton(
+                        style: ElevatedButton.styleFrom(
+                          backgroundColor: const Color(0xFFF77D8E),
+                          minimumSize: const Size(double.infinity, 40),
+                          shape: const RoundedRectangleBorder(
+                            borderRadius: BorderRadius.only(
+                              topLeft: Radius.circular(25),
+                              topRight: Radius.circular(25),
+                              bottomLeft: Radius.circular(10),
+                              bottomRight: Radius.circular(10)
+                            )
+                          )
+                        ),
+                        onPressed: () {
+                          pickImage(ImageSource.gallery);
+                        },
+                        child: const Text('Загрузить аватар',style: TextStyle(
+                      color: Color.fromARGB(255, 255, 255, 255)
+                                          ),),
+                      ),
+                    ),
+                    SizedBox(
+                      width: 175,
+                      child: ElevatedButton(
+                        style: ElevatedButton.styleFrom(
+                          backgroundColor: const Color(0xFFF77D8E),
+                          minimumSize: const Size(double.infinity, 40),
+                          shape: const RoundedRectangleBorder(
+                            borderRadius: BorderRadius.only(
+                              topLeft: Radius.circular(25),
+                              topRight: Radius.circular(25),
+                              bottomLeft: Radius.circular(10),
+                              bottomRight: Radius.circular(10)
+                            )
+                          )
+                        ),
+                        onPressed: () {
+                          pickImage(ImageSource.camera);
+                        },
+                        child: const Text('Сделать фото',style: TextStyle(
+                      color: Color.fromARGB(255, 255, 255, 255)
+                                          ),),
+                      ),
+                    ),
+                  ],
+                ),
+              ),
               Padding(
                 padding: const EdgeInsets.only(top: 8, bottom: 24),
                 child: ElevatedButton.icon(
-                  onPressed: () {
+                  onPressed: () async {
                     setState(() {
                       isShowLoading = true;
                     });
-                    
-                    Future.delayed(const Duration(seconds: 1),
-                    () {
-                       if(_formkey.currentState!.validate()){
+                    Future.delayed(const Duration(milliseconds: 500),
+                      () async {
+                        if(_formkey.currentState!.validate()){
+                          String article = "no";
+                          if(image != null) {
+                            article = await Repository.seveImage(image!);
+                          }
+                        User? user = await Repository.registerUser(loginController.text, passController.text,article,nameController.text);
+                        if(user == null){
+                          error.fire();
+                        }else{
                           check.fire();
+                          Future.delayed(const Duration(seconds: 2),
+                            () async {
+                              ControllerGet.to.user.value = user;
+                              final prefs = await SharedPreferences.getInstance();
+                              prefs.setString("email", loginController.text);
+                              prefs.setString("pass", passController.text);
+                              prefs.setBool("login", true);
+                              Get.offAllNamed("/main");
+                            });
+                        } 
                         } else {
                           error.fire();
                         }
-                        Future.delayed(const Duration(seconds: 2),
+                        Future.delayed(const Duration(seconds: 3),
                           () {
                             setState(() {
                               isShowLoading = false;
                             });
                           });
-                    });
-                   
+                      }
+                    );         
                   }, 
                   style: ElevatedButton.styleFrom(
                     backgroundColor: const Color(0xFFF77D8E),
@@ -162,7 +287,7 @@ class _SignUpFormState extends State<SignUpForm> {
                     shape: const RoundedRectangleBorder(
                       borderRadius: BorderRadius.only(
                         topLeft: Radius.circular(10),
-                        topRight: Radius.circular(25),
+                        topRight: Radius.circular(10),
                         bottomLeft: Radius.circular(25),
                         bottomRight: Radius.circular(25)
                       )

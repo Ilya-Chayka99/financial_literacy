@@ -1,9 +1,14 @@
 
+import 'package:financial_literacy/GetX/Controllers/controller.dart';
+import 'package:financial_literacy/Models/user.dart';
+import 'package:financial_literacy/Repositories/repository.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
+import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:rive/rive.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 class SignInForm extends StatefulWidget {
   const SignInForm({
@@ -108,26 +113,39 @@ class _SignInFormState extends State<SignInForm> {
               Padding(
                 padding: const EdgeInsets.only(top: 8, bottom: 24),
                 child: ElevatedButton.icon(
-                  onPressed: () {
+                  onPressed: () async {
                     setState(() {
                       isShowLoading = true;
                     });
-                    
-                    Future.delayed(const Duration(seconds: 1),
-                    () {
-                       if(_formkey.currentState!.validate()){
+                    Future.delayed(const Duration(milliseconds: 500),
+                      () async {
+                        if(_formkey.currentState!.validate()){
+                        User? user = await Repository.loginUser(loginController.text, passController.text);
+                        if(user == null){
+                          error.fire();
+                        }else{
                           check.fire();
+                          Future.delayed(const Duration(seconds: 2),
+                            () async {
+                              ControllerGet.to.user.value = user;
+                              final prefs = await SharedPreferences.getInstance();
+                              prefs.setBool("login", true);
+                              prefs.setString("email", loginController.text);
+                              prefs.setString("pass", passController.text);
+                              Get.offAllNamed("/main");
+                            });
+                        } 
                         } else {
                           error.fire();
                         }
-                        Future.delayed(const Duration(seconds: 2),
+                        Future.delayed(const Duration(seconds: 3),
                           () {
                             setState(() {
                               isShowLoading = false;
                             });
                           });
                     });
-                   
+                    
                   }, 
                   style: ElevatedButton.styleFrom(
                     backgroundColor: const Color(0xFFF77D8E),
