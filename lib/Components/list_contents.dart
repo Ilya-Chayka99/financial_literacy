@@ -1,4 +1,5 @@
 
+import 'package:carousel_slider/carousel_slider.dart';
 import 'package:financial_literacy/GetX/Controllers/controller.dart';
 import 'package:financial_literacy/Models/category.dart';
 import 'package:financial_literacy/Screens/course_screen.dart';
@@ -88,7 +89,7 @@ List<Widget> content = [
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               Text("Финансовая грамотность -\nтрэнд 21 века",style: GoogleFonts.russoOne(
-                textStyle: const TextStyle(color: Colors.white,fontSize: 28)
+                textStyle: TextStyle(color: Colors.white,fontSize: MediaQuery.of(context).size.width * 0.06 )
               ),),
             ],
           ),
@@ -157,28 +158,26 @@ List<Widget> content = [
             ],
           ),
         ),
-        const SizedBox(
-                height: 40,
-        ),
-        GridView.builder(
-          shrinkWrap: true,
-          padding: const EdgeInsets.symmetric(
-            horizontal: 20,
-            vertical: 8,
-          ),
-          gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
-            crossAxisCount: 2,
-            childAspectRatio: 0.8,
-            crossAxisSpacing: 20,
-            mainAxisSpacing: 24,
-          ),
-          itemBuilder: (context, index) {
-            return CategoryCard(
-              category: categoryList[index],
-            );
-          },
-          itemCount: categoryList.length,
-        ),
+        Obx(() => 
+          Column(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              CarouselSlider.builder(
+                // ignore: invalid_use_of_protected_member
+                itemCount: ControllerGet.to.listCategory.value.length, 
+                itemBuilder: (context, index, realindex) {
+                  return CategoryCard(
+                    // ignore: invalid_use_of_protected_member
+                    category: ControllerGet.to.listCategory.value[index],
+                  );
+                },
+                options: CarouselOptions(
+                  height: MediaQuery.of(context).size.height * 0.53,
+                )
+              ),
+            ],
+          )
+        )
       ],
     );
   }
@@ -198,6 +197,7 @@ class CategoryCard extends StatelessWidget {
         Get.to(() =>CourseScreen(category: category));
       },
       child: Container(
+        margin: const EdgeInsets.all(5),
         padding: const EdgeInsets.all(10),
         decoration: BoxDecoration(
           color: Colors.white,
@@ -211,12 +211,13 @@ class CategoryCard extends StatelessWidget {
           ],
         ),
         child: Column(
+          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
           children: [
             Align(
               alignment: Alignment.center,
-              child: Image.asset(
-                category.image,
-                height: 130,
+              child: Image.network(
+                "http://89.111.131.40:8080/api/image/image/${category.image}",
+                height: MediaQuery.of(context).size.height * 0.25,
               ),
             ),
             const SizedBox(

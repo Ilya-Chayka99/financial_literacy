@@ -1,8 +1,9 @@
 
 import 'dart:math';
-
 import 'package:financial_literacy/Components/animated_bar.dart';
 import 'package:financial_literacy/Components/list_contents.dart';
+import 'package:financial_literacy/GetX/Controllers/controller.dart';
+import 'package:financial_literacy/Repositories/repository.dart';
 import 'package:financial_literacy/Screens/side_menu_profile.dart';
 import 'package:financial_literacy/Models/nav_item_model.dart';
 import 'package:flutter/material.dart';
@@ -37,6 +38,7 @@ class _MyHomePageState extends State<MyHomePage> with SingleTickerProviderStateM
     scalAnimation = Tween<double>(begin: 1, end: 0.8).animate(
       CurvedAnimation(parent: _animationController, curve: Curves.fastOutSlowIn),
     );
+    getCategory();
     super.initState();
   }
 
@@ -44,6 +46,10 @@ class _MyHomePageState extends State<MyHomePage> with SingleTickerProviderStateM
   void dispose() {
     _animationController.dispose();
     super.dispose();
+  }
+
+  Future<void> getCategory() async {
+    ControllerGet.to.listCategory.value = await Repository.getCategory();
   }
 
   @override

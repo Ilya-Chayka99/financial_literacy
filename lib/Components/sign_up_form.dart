@@ -192,7 +192,7 @@ class _SignUpFormState extends State<SignUpForm> {
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
                     SizedBox(
-                      width: 175,
+                      width: MediaQuery.of(context).size.width * 0.4,
                       child: ElevatedButton(
                         style: ElevatedButton.styleFrom(
                           backgroundColor: const Color(0xFFF77D8E),
@@ -210,12 +210,12 @@ class _SignUpFormState extends State<SignUpForm> {
                           pickImage(ImageSource.gallery);
                         },
                         child: const Text('Загрузить аватар',style: TextStyle(
-                      color: Color.fromARGB(255, 255, 255, 255)
-                                          ),),
+                          color: Color.fromARGB(255, 255, 255, 255),
+                        ),textAlign: TextAlign.center,),
                       ),
                     ),
                     SizedBox(
-                      width: 175,
+                      width: MediaQuery.of(context).size.width * 0.4,
                       child: ElevatedButton(
                         style: ElevatedButton.styleFrom(
                           backgroundColor: const Color(0xFFF77D8E),
@@ -233,8 +233,8 @@ class _SignUpFormState extends State<SignUpForm> {
                           pickImage(ImageSource.camera);
                         },
                         child: const Text('Сделать фото',style: TextStyle(
-                      color: Color.fromARGB(255, 255, 255, 255)
-                                          ),),
+                          color: Color.fromARGB(255, 255, 255, 255)
+                        ),textAlign: TextAlign.center,),
                       ),
                     ),
                   ],

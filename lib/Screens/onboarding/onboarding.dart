@@ -58,17 +58,22 @@ class _OnboardingState extends State<Onboarding> {
           itemCount: controller.items.length,
           controller: pageController,
           itemBuilder: (context,index){
-            return Column(
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: [
-                Image.asset(controller.items[index].image),
-                Text(controller.items[index].title,style: GoogleFonts.russoOne(
-                  textStyle: const TextStyle(color: Color.fromARGB(192, 0, 0, 0),fontSize: 32)
-                ),textAlign: TextAlign.center),
-                Text(controller.items[index].decoration,style: GoogleFonts.russoOne(
-                  textStyle: const TextStyle(color: Color.fromARGB(115, 0, 0, 0),fontSize: 16)
-                ),textAlign: TextAlign.center,),
-              ],
+            return SingleChildScrollView(
+              child: SizedBox(
+                height: MediaQuery.of(context).size.height,
+                child: Column(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    Image.asset(controller.items[index].image),
+                    Text(controller.items[index].title,style: GoogleFonts.russoOne(
+                      textStyle: const TextStyle(color: Color.fromARGB(192, 0, 0, 0),fontSize: 32)
+                    ),textAlign: TextAlign.center),
+                    Text(controller.items[index].decoration,style: GoogleFonts.russoOne(
+                      textStyle: const TextStyle(color: Color.fromARGB(115, 0, 0, 0),fontSize: 16)
+                    ),textAlign: TextAlign.center,),
+                  ],
+                ),
+              ),
             );
           }),
       ),
@@ -176,7 +181,7 @@ Future<Object?> customSignUpDialog(BuildContext context) {
     barrierLabel: "Регистрация",
     pageBuilder: (context,_ ,__) => Center(
       child: Container(
-        height: 910,
+        height: 711,
         margin: const EdgeInsets.symmetric(horizontal: 16),
         padding: const EdgeInsets.symmetric(vertical: 32, horizontal: 24),
         decoration: BoxDecoration(
@@ -186,15 +191,19 @@ Future<Object?> customSignUpDialog(BuildContext context) {
         child: Scaffold(
           resizeToAvoidBottomInset: false,
           backgroundColor: Colors.transparent,
-          body: Center(
-            child: Column(
-              children: [
-                Text("Регистрация",style: GoogleFonts.russoOne(
-                  textStyle: TextStyle(color: Colors.black.withOpacity(0.7), fontSize: 34)
-                ),),
-                const SizedBox(height: 10,),
-                const SignUpForm(),
-              ],
+          body: SingleChildScrollView(
+            reverse: true,
+            child: Center(
+              child: Column(
+                children: [
+                  Text("Регистрация",style: GoogleFonts.russoOne(
+                    textStyle: TextStyle(color: Colors.black.withOpacity(0.7), fontSize: 34)
+                  ),),
+                  const SizedBox(height: 10,),
+                  const SignUpForm(),
+                  Padding(padding: EdgeInsets.only(bottom: MediaQuery.of(context).viewInsets.bottom/1.5))
+                ],
+              ),
             ),
           ),
         ),
