@@ -43,6 +43,7 @@ dependencies:
   dio: ^5.4.3+1
   image_picker: ^1.1.1
   carousel_slider: ^4.2.1
+  circular_profile_avatar: ^2.0.5
 
 
 dev_dependencies:

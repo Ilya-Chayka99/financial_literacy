@@ -39,6 +39,7 @@ class _MyHomePageState extends State<MyHomePage> with SingleTickerProviderStateM
       CurvedAnimation(parent: _animationController, curve: Curves.fastOutSlowIn),
     );
     getCategory();
+    ControllerGet.initProg();
     super.initState();
   }
 

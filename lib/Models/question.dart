@@ -1,12 +1,13 @@
-
 class Question {
   String title;
-  List<String> listOtv;
-  int numOtv;
-  
+  List<dynamic> listOtv;
+  String numOtv;
+  String text;
+
   Question({
     required this.title,
     required this.listOtv,
     required this.numOtv,
+    required this.text,
   });
 }

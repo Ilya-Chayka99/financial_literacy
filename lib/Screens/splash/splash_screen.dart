@@ -16,7 +16,7 @@ class SplashScreen extends StatelessWidget {
     if (prefs.getBool("login") == true) {
       User? user = await Repository.loginUser(prefs.getString("email")!,prefs.getString("pass")!);
       ControllerGet.to.user.value = user!;
-      Future.delayed(const Duration(milliseconds: 2000),
+      Future.delayed(const Duration(milliseconds: 1500),
         () async {
            Get.offAllNamed("/main");                   
         }

@@ -125,7 +125,7 @@ class _SignInFormState extends State<SignInForm> {
                           error.fire();
                         }else{
                           check.fire();
-                          Future.delayed(const Duration(seconds: 2),
+                          Future.delayed(const Duration(seconds: 1),
                             () async {
                               ControllerGet.to.user.value = user;
                               final prefs = await SharedPreferences.getInstance();
@@ -140,9 +140,11 @@ class _SignInFormState extends State<SignInForm> {
                         }
                         Future.delayed(const Duration(seconds: 3),
                           () {
-                            setState(() {
+                            if(mounted) {
+                              setState(() {
                               isShowLoading = false;
                             });
+                            }
                           });
                     });
                     
