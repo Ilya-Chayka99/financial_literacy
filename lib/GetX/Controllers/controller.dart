@@ -1,10 +1,12 @@
 import 'package:financial_literacy/Models/category.dart';
+import 'package:financial_literacy/Models/cosmetic.dart';
 import 'package:financial_literacy/Models/course.dart';
 import 'package:financial_literacy/Models/paragraph.dart';
 import 'package:financial_literacy/Models/question.dart';
 import 'package:financial_literacy/Models/user.dart';
 import 'package:financial_literacy/Repositories/repository.dart';
 import 'package:get/get.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 class ControllerGet extends GetxController {
   static ControllerGet get to => Get.find();
@@ -25,7 +27,7 @@ class ControllerGet extends GetxController {
   RxList<User> listUserTop = [
     User(image: "image", name: "name", email: "email", money: 0, rank: 1)
   ].obs;
-
+  RxList<Cosmetic> cosmetic = RxList();
   RxMap<String, RxMap<dynamic, dynamic>> mapProg = RxMap({});
 
   static double getCountComplitedProcent(String categoryName) {
@@ -64,10 +66,14 @@ class ControllerGet extends GetxController {
   static Future<void> initProg() async {
     ControllerGet.to.mapProg.value = await Repository.getPartitioncompleteness(
         ControllerGet.to.user.value.email);
+    final prefs = await SharedPreferences.getInstance();
+    User? user = await Repository.loginUser(prefs.getString("email")!,prefs.getString("pass")!);
+      ControllerGet.to.user.value = user!;
   }
 
   static Future<void> init() async {
     ControllerGet.to.listUserTop.value = await Repository.getTop100();
+    ControllerGet.to.cosmetic.value = await Repository.getCosmetic();
     ControllerGet.to.mapProg.value = await Repository.getPartitioncompleteness(
         ControllerGet.to.user.value.email);
   }

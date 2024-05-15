@@ -26,6 +26,7 @@ class _MyHomePageState extends State<MyHomePage> with SingleTickerProviderStateM
  
  @override
   void initState() {
+    ControllerGet.init();
     _animationController = AnimationController(
       vsync: this ,
       duration: const Duration(milliseconds: 200)

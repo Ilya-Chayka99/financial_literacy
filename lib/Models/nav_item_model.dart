@@ -10,7 +10,8 @@ class NavItemModel{
 
 List<NavItemModel> bottonNavItems = [
   NavItemModel(title: 'Основная', icon: Icons.home),
-  NavItemModel(title: 'Рэйтинг', icon: Icons.assessment),
+  NavItemModel(title: 'Рэйтинг', icon: Icons.equalizer),
+  NavItemModel(title: 'Аркада', icon: Icons.donut_small),
   NavItemModel(title: 'Профиль', icon: Icons.perm_identity_sharp),
 
 ];

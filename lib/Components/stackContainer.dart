@@ -21,7 +21,11 @@ class StackContainer extends StatelessWidget {
             clipper: MyCustioClipper(),
             child: Container(
               height: 250,
-              color: Colors.red,
+              decoration: BoxDecoration(
+                image: DecorationImage(
+                  image: AssetImage('lib/Assets/image/sqare.png')
+                  )
+              ),
             ),
           ),
           Align(

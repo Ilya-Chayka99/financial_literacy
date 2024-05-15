@@ -4,6 +4,7 @@ import 'package:financial_literacy/Models/category.dart';
 import 'package:financial_literacy/Repositories/repository.dart';
 import 'package:financial_literacy/Screens/allCategory.dart';
 import 'package:financial_literacy/Screens/course_screen.dart';
+import 'package:financial_literacy/Screens/gameScreen.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:get/get.dart';
@@ -161,19 +162,41 @@ List<Widget> content = [
       ),
       floatingActionButtonLocation: FloatingActionButtonLocation.miniEndTop),
   Scaffold(
-    appBar: AppBar(
-      backgroundColor: Colors.red,
-      title: const Text("3"),
-    ),
-    body: const Center(
-      child: Column(
-        children: <Widget>[
-          Text(
-            'You have pushed the button this many times:',
+    body: Column(
+      children:[
+        Container(
+            padding: const EdgeInsets.only(top: 50, left: 20, right: 20),
+            width: double.infinity,
+            decoration: const BoxDecoration(
+                borderRadius: BorderRadius.only(
+                  bottomLeft: Radius.circular(20),
+                  bottomRight: Radius.circular(20),
+                ),
+                gradient: LinearGradient(
+                  colors: [Color(0xff17203a), Color(0xff1e2962)],
+                  stops: [0.25, 0.75],
+                  begin: Alignment.topLeft,
+                  end: Alignment.bottomRight,
+                )),
+            child: Column(
+              children: [
+                const SizedBox(
+                  height: 20,
+                ),
+                Text("Аркадная игра - Баланс",
+                    style: GoogleFonts.russoOne(
+                      textStyle: const TextStyle(
+                          color: Colors.white, fontSize: 18),
+                    ),textAlign: TextAlign.center,),
+                const SizedBox(
+                  height: 30,
+                ),
+                
+              ],
+            ),
           ),
-          Text('e45345'),
-        ],
-      ),
+          const GameScreen(),
+      ],
     ),
   ),
 ];

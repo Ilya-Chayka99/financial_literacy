@@ -2,6 +2,7 @@ import 'dart:convert';
 import 'dart:io';
 import 'package:dio/dio.dart';
 import 'package:financial_literacy/Models/category.dart';
+import 'package:financial_literacy/Models/cosmetic.dart';
 import 'package:financial_literacy/Models/course.dart';
 import 'package:financial_literacy/Models/paragraph.dart';
 import 'package:financial_literacy/Models/question.dart';
@@ -46,7 +47,7 @@ class Repository {
   static Future<List<User>> getTop100() async {
     try {
       final response = await Dio().post(
-        'http://89.111.131.40:8080/api/user/getTop100',
+        'http://89.111.131.40:8080/api/user/getTop100ByMoney',
       );
       final data = json.decode(response.data);
       List<dynamic> list = data['users'];
@@ -60,6 +61,23 @@ class Repository {
             rank: 0));
       }
       return users;
+    } catch (e) {
+      return [];
+    }
+  }
+
+  static Future<List<Cosmetic>> getCosmetic() async {
+    try {
+      final response = await Dio().post(
+        'http://89.111.131.40:8080/api/cosmetic/get',
+      );
+      final data = json.decode(response.data);
+      List<dynamic> list = data['cosmetics'];
+      List<Cosmetic> cosmetics = [];
+      for (var i = 0; i < list.length; i++) {
+        cosmetics.add(Cosmetic(id: 0, image: list[i]["image"], name: list[i]["name"], price: list[i]["price"]));
+      }
+      return cosmetics;
     } catch (e) {
       return [];
     }

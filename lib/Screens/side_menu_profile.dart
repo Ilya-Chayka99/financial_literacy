@@ -1,3 +1,4 @@
+import 'package:financial_literacy/Components/mySquareClipper.dart';
 import 'package:financial_literacy/Components/stackContainer.dart';
 import 'package:financial_literacy/GetX/Controllers/controller.dart';
 import 'package:financial_literacy/Screens/onboarding/onboarding.dart';
@@ -45,12 +46,14 @@ class SideMenuProfile extends StatelessWidget {
                           child: Column(
                             mainAxisAlignment: MainAxisAlignment.center,
                             children: [
-                              Text(
-                                ControllerGet.to.user.value.rank.toString(),
-                                style: GoogleFonts.russoOne(
-                                    textStyle: const TextStyle(
-                                  color: Colors.white,
-                                )),
+                              Obx(() => 
+                                Text(
+                                  ControllerGet.to.user.value.rank.toString(),
+                                  style: GoogleFonts.russoOne(
+                                      textStyle: const TextStyle(
+                                    color: Colors.white,
+                                  )),
+                                ),
                               ),
                               Text(
                                 "Рэйтинг",
@@ -73,14 +76,15 @@ class SideMenuProfile extends StatelessWidget {
                           child: Center(
                             child: Column(
                               children: [
-                                Text(
+                                Obx(() => 
+                                 Text(
                                   ControllerGet.to.user.value.money.toString(),
-                                  style: GoogleFonts.russoOne(
-                                      textStyle: const TextStyle(
-                                    color: Colors.white,
-                                  )),
+                                    style: GoogleFonts.russoOne(
+                                        textStyle: const TextStyle(
+                                      color: Colors.white,
+                                    )),
+                                  ),
                                 ),
-                               
                                 SvgPicture.asset(
                                   "lib/Assets/icons/rate-diamond-svgrepo-com.svg",
                                   width: 25,
@@ -174,9 +178,9 @@ Future<Object?> customShopDialog(BuildContext context) {
         height: 663,
         margin: const EdgeInsets.symmetric(horizontal: 16),
         padding: const EdgeInsets.symmetric(vertical: 32, horizontal: 24),
-        decoration: BoxDecoration(
-          color: Colors.white.withOpacity(0.94),
-          borderRadius: const BorderRadius.all(Radius.circular(40))
+        decoration: const BoxDecoration(
+          color: Colors.white,
+          borderRadius: BorderRadius.all(Radius.circular(40))
         ),
         child: Scaffold(
           resizeToAvoidBottomInset: false,
@@ -194,8 +198,44 @@ Future<Object?> customShopDialog(BuildContext context) {
                     Expanded(child: Divider()),
                   ],
                 ),
-                
-
+                Text("Расцветка флажка профиля",style: GoogleFonts.russoOne(
+                  textStyle: TextStyle(color: Colors.black.withOpacity(0.7), fontSize: 16)
+                ),),
+                const SizedBox(height: 10,),
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceAround,
+                  children: [
+                    ...ControllerGet.to.cosmetic.value.map((e) => 
+                      Card(
+                        color: Colors.white,
+                        child: Column(
+                          children: [
+                            ClipPath(
+                              clipper: MySquareClipper(),
+                              child: Container(
+                                margin: const EdgeInsets.only(top: 10),
+                                width: 50,
+                                height: 50,
+                                decoration: BoxDecoration(
+                                  image: DecorationImage(
+                                    image: NetworkImage("http://89.111.131.40:8080/api/image/image/${e.image}")
+                                  )
+                                ),
+                              ),
+                            ),
+                            TextButton.icon(
+                              onPressed: (){}, 
+                              icon: const Icon(Icons.add_shopping_cart,weight: 10,), 
+                              label: Text("Купить: ${e.price}",style: GoogleFonts.russoOne(
+                                textStyle: TextStyle(color: Colors.black.withOpacity(0.7), fontSize: 12)
+                              ),),
+                            )
+                          ],
+                        ),
+                      )
+                    ).toList(),
+                  ],
+                )
               ],
             ),
           ),
